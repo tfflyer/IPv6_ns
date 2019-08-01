@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        {% load static %}
+    <meta charset="UTF-8">
+    <title>IPv6溯源展示</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <script src="{% static 'echarts.js' %}"></script>
+    <script src="{% static 'china.js' %}"></script>
+    <script src="{% static 'jquery.js' %}"></script>
+
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <div class="content">
+      <section class="dark-section" >
+        <div class="article-preview" >
+          <div class="img-section">
+            <button type="button" style="width: 100px;height: 30px;background-color: pink;">get！</button>
+            <div>
+
+            <div id="main1" style="width: 600px;height: 500px;
+                                        float:left;">
+            </div>
+            <div id="main" style="width: 600px;height: 500px;float:left;
+                                    margin-top: auto; ">
+            </div>
+
+            <div>
+            <script type="text/javascript">
+            var axisData = ['dst', 'router6', 'router7', 'router5', 'router8', 'router4', 'router2',
+              'router3', 'router1', 'src'
+            ];
+          var myChart = echarts.init(document.getElementById('main1'));
+          option = {
+            title: {
+              text: '拓扑路径展示'
+            },
+            // tooltip: {},
+            toolbox: {
+              show: false,
+              feature: {
+                saveAsImage: {
+                  show: true
+                },
+                // restore:{show:true,},
+                dataView: {
+                  show: true
+                },
+                // magicType:{show:true},
+
+
+              }
+            },
+            xAxis: {
+              type: 'category',
+              // boundaryGap : false,
+              data: axisData,
+              show: false
+            },
+            yAxis: {
+              type: 'value',
+              show: false
+            },
+            legend: {
+              data: ['路由器节点', '主机节点', '溯源路径节点']
+            },
+            series: [{
+              type: 'graph',
+              layout: 'none',
+              coordinateSystem: 'cartesian2d',
+              symbolSize: 40,
+              legendHoverLink: true,
+              hoverAnimation: true,
+              focusNodeAdjacency: true,
+              categories: [{
+                  name: '路由器节点'
+                },
+                {
+                  name: '主机节点'
+                },
+                {
+                  name: '溯源路径节点'
+                }
+              ],
+              label: {
+                normal: {
+                  show: true
+                }
+              },
+              edgeSymbol: ['circle'],
+              edgeSymbolSize: [4, 10],
+              // data:data,
+              data: [{
+                category: 1,
+                name: 'dst',
+                value: 15,
+
+              }, {
+                category: 0,
+                name: 'router6',
+
+                value: 15,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router7',
+
+                value: 20,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router5',
+
+                value: 13,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router8',
+
+                value: 18,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router4',
+
+                value: 10,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router2',
+
+                value: 4,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+                name: 'router3',
+
+                value: 8,
+                symbolSize: 30,
+
+              }, {
+                category: 0,
+
+                name: 'router1',
+
+                value: 3,
+                symbolSize: 30,
+
+              }, {
+                category: 1,
+
+                name: 'src',
+                value: 0,
+
+              }],
+              links: [{
+                  source: 'dst',
+                  target: 'router6',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router6',
+                  target: 'router7'
+                },
+                {
+                  source: 'router5',
+                  target: 'router7'
+                },
+                {
+                  source: 'router7',
+                  target: 'router8'
+                },
+                {
+                  source: 'router5',
+                  target: 'router4',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router8',
+                  target: 'router4'
+                },
+
+                {
+                  source: 'router5',
+                  target: 'router6',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router5',
+                  target: 'router7'
+                },
+                {
+                  source: 'router4',
+                  target: 'router2'
+                },
+                {
+                  source: 'router3',
+                  target: 'router2'
+                },
+                {
+                  source: 'router4',
+                  target: 'router3',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router1',
+                  target: 'router3',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router1',
+                  target: 'router2'
+                },
+                {
+                  source: 'router1',
+                  target: 'src',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+
+              ],
+              lineStyle: {
+                normal: {
+                  color: 'red'
+                },
+                type: 'solid',
+              }
+            }]
+          };
+            myChart.setOption(option);
+            </script>
+
+            <script>
+
+              $(document).ready(function() {
+                $("button").click(function() {
+                  $("#main1").hide();
+                  $.ajax({
+          url: 'http://127.0.0.1:8005/ajax',
+          dataType: 'json',
+          success: function(data) {
+            console.log(data);
+            var axisData = ['dst', 'router6', 'router7', 'router5', 'router8', 'router4', 'router2',
+              'router3', 'router1', 'src'
+            ];
+          var myChart = echarts.init(document.getElementById('main'));
+          option = {
+            title: {
+              text: '溯源路径展示'
+            },
+            // tooltip: {},
+            toolbox: {
+              show: false,
+              feature: {
+                saveAsImage: {
+                  show: true
+                },
+                // restore:{show:true,},
+                dataView: {
+                  show: true
+                },
+                // magicType:{show:true},
+
+
+              }
+            },
+            xAxis: {
+              type: 'category',
+              // boundaryGap : false,
+              data: axisData,
+              show: false
+            },
+            yAxis: {
+              type: 'value',
+              show: false
+            },
+            legend: {
+              data: ['路由器节点', '主机节点', '溯源路径节点']
+            },
+            series: [{
+              type: 'graph',
+              layout: 'none',
+              coordinateSystem: 'cartesian2d',
+              symbolSize: 40,
+              legendHoverLink: true,
+              hoverAnimation: true,
+              focusNodeAdjacency: true,
+              categories: [{
+                  name: '路由器节点'
+                },
+                {
+                  name: '主机节点'
+                },
+                {
+                  name: '溯源路径节点'
+                }
+              ],
+              label: {
+                normal: {
+                  show: true
+                }
+              },
+              edgeSymbol: ['circle'],
+              edgeSymbolSize: [4, 10],
+              data:data.data,
+
+              links: [{
+                  source: 'dst',
+                  target: 'router6',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router6',
+                  target: 'router7'
+                },
+                {
+                  source: 'router5',
+                  target: 'router7'
+                },
+                {
+                  source: 'router7',
+                  target: 'router8'
+                },
+                {
+                  source: 'router5',
+                  target: 'router4',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router8',
+                  target: 'router4'
+                },
+
+                {
+                  source: 'router5',
+                  target: 'router6',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router5',
+                  target: 'router7'
+                },
+                {
+                  source: 'router4',
+                  target: 'router2'
+                },
+                {
+                  source: 'router3',
+                  target: 'router2'
+                },
+                {
+                  source: 'router4',
+                  target: 'router3',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router1',
+                  target: 'router3',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+                {
+                  source: 'router1',
+                  target: 'router2'
+                },
+                {
+                  source: 'router1',
+                  target: 'src',
+                  lineStyle: {
+                    color: 'green'
+                  }
+                },
+
+              ],
+              lineStyle: {
+                normal: {
+                  color: 'red'
+                },
+                type: 'solid',
+              }
+            }]
+          };
+            myChart.setOption(option);
+          }
+      });
+                 });
+                // 开始写 jQuery 代码...
+
+              });
+              myChart.setOption(option);
+            </script>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+         <div>
+                  <h2>攻击路径还原：</h2>  <ul>
+    {% for athlete in cont %}
+        <li>{{ athlete }}</li>
+        <br>
+    {% endfor %}
+</ul>
+                </div>
+</div>
+      </div>
+</body>
+</html>
